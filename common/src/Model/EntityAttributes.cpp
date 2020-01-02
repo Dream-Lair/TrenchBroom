@@ -64,8 +64,9 @@ namespace TrenchBroom {
             const AttributeValue GroupTypeGroup      = "_tb_group";
         }
 
-        bool isNumberedAttribute(const std::string_view& prefix, const std::string_view& name) {
-            return kdl::cs::str_matches_glob(name, std::string(prefix) + "%*");
+        bool isNumberedAttribute(const std::string_view prefix, const std::string_view name) {
+            const std::string pattern = std::string(prefix) + "%*";
+            return kdl::cs::str_matches_glob(name, pattern);
         }
 
         EntityAttribute::EntityAttribute() :
@@ -99,31 +100,31 @@ namespace TrenchBroom {
             return m_definition;
         }
 
-        bool EntityAttribute::hasName(const std::string_view& name) const {
+        bool EntityAttribute::hasName(const std::string_view name) const {
             return kdl::cs::str_is_equal(m_name, name);
         }
 
-        bool EntityAttribute::hasValue(const std::string_view& value) const {
+        bool EntityAttribute::hasValue(const std::string_view value) const {
             return kdl::cs::str_is_equal(m_value, value);
         }
 
-        bool EntityAttribute::hasNameAndValue(const std::string_view& name, const std::string_view& value) const {
+        bool EntityAttribute::hasNameAndValue(const std::string_view name, const std::string_view value) const {
             return hasName(name) && hasValue(value);
         }
 
-        bool EntityAttribute::hasPrefix(const std::string_view& prefix) const {
+        bool EntityAttribute::hasPrefix(const std::string_view prefix) const {
             return kdl::cs::str_is_prefix(m_name, prefix);
         }
 
-        bool EntityAttribute::hasPrefixAndValue(const std::string_view& prefix, const std::string_view& value) const {
+        bool EntityAttribute::hasPrefixAndValue(const std::string_view prefix, const std::string_view value) const {
             return hasPrefix(prefix) && hasValue(value);
         }
 
-        bool EntityAttribute::hasNumberedPrefix(const std::string_view& prefix) const {
+        bool EntityAttribute::hasNumberedPrefix(const std::string_view prefix) const {
             return isNumberedAttribute(prefix, m_name);
         }
 
-        bool EntityAttribute::hasNumberedPrefixAndValue(const std::string_view& prefix, const std::string_view& value) const {
+        bool EntityAttribute::hasNumberedPrefixAndValue(const std::string_view prefix, const std::string_view value) const {
             return hasNumberedPrefix(prefix) && hasValue(value);
         }
 
